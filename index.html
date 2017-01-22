@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<style>
+    html, body {
+        font-size: 10px;
+        font-family: 'Verdana';
+        text-align: center;
+    }
+    #buttons {
+        /* Flex Container */
+        display: flex;
+        flex-flow: row wrap;
+        align-content: flex-start;
+        justify-content: center;
+
+
+        border: 2px solid red;
+        height: 500px;
+        width: 30%;
+        margin: 0 auto;
+    }
+    .button {
+        /* Flex Item */
+        margin: 10px;
+        padding: 5%;
+
+        /* Center the Text by making the button a flex of it's own */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        /* Styling the Box */
+        border-radius: 10%;
+        color: white;
+        background: black;
+        font-size: 20px;
+    }
+</style>
+
+
+<head>
+    <meta charset="UTF-8">
+    <title> Calculator </title>
+</head>
+
+<body>
+
+    <div id="container">
+
+
+
+        <h1 id="calculatorHeading">FreeCodeCamp</h1>
+        <p> Electronic Calculator </p>
+
+        <div id="outputArea">
+            <h1> 0 </h1>
+            <p> 0+0=0</p>
+        </div>
+
+        <div id="buttons">
+            <div class="button">AC</div>
+            <div class="button">CE</div>
+            <div class="button">/</div>
+            <div class="button">x</div>
+            <div class="button">7</div>
+            <div class="button">8</div>
+            <div class="button">9</div>
+            <div class="button">-</div>
+            <div class="button">4</div>
+            <div class="button">5</div>
+            <div class="button">6</div>
+            <div class="button">+</div>
+            <div class="button">1</div>
+            <div class="button">2</div>
+            <div class="button">3</div>
+            <div class="button">=</div>
+            <div class="button">0</div>
+            <div class="button">.</div>
+        </div>
+    </div>
+</body>
+
+<script>
+
+const buttons = Array.from(document.querySelectorAll('.button'));
+const outputArea = document.querySelector('#outputArea h1');
+
+console.log(buttons);
+console.log(outputArea);
+
+buttons.map(button => {
+
+    button.onclick = function() {
+        console.log(button.innerHTML + 1);
+    }
+
+});
+
+
+</script>
+
+</html>
