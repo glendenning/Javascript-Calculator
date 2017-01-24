@@ -89,7 +89,7 @@ const recentArea = document.querySelector('#outputArea p');
 
 
 var currentNumber = [];
-var operations = "";
+var history = []; //This is every number_op_number_op pressed in sequence. 
 var runningTotal = 0;
 // press all of the numbers. When operator is pressed, it gets the number that was typed. 
 
@@ -100,7 +100,9 @@ numbers.map(number => {
         console.log('That was a number', number);
         if (number.className.includes('number') && !currentNumber.includes('.')){
             currentNumber.push(number.innerHTML);
+            history.push(number.innerHTML);
         }
+        console.log('history:', history.join(''));
     };
 });
 
@@ -131,15 +133,14 @@ operators.map(operator => {
             default:
                 console.log('it went to default for some reason');
         }
+        console.log('history:', history.join(''));
         console.log('runningTotal is', runningTotal);
+        history.push(operator.innerHTML);
+
         currentNumber = [];
 
         // add the current number and operation to the recent string
         // then wipe the current number clean to [].
-
-
-
-
 
     }
 
