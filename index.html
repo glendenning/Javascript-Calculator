@@ -53,49 +53,97 @@
         <p> Electronic Calculator </p>
 
         <div id="outputArea">
-            <h1> 0 </h1>
-            <p> 0+0=0</p>
+            <h1>0</h1>
+            <p>0+0=0</p>
         </div>
 
         <div id="buttons">
             <div class="button">AC</div>
             <div class="button">CE</div>
-            <div class="button">/</div>
-            <div class="button">x</div>
-            <div class="button">7</div>
-            <div class="button">8</div>
-            <div class="button">9</div>
-            <div class="button">-</div>
-            <div class="button">4</div>
-            <div class="button">5</div>
-            <div class="button">6</div>
-            <div class="button">+</div>
-            <div class="button">1</div>
-            <div class="button">2</div>
-            <div class="button">3</div>
-            <div class="button">=</div>
-            <div class="button">0</div>
-            <div class="button">.</div>
+            <div class="button operation">/</div>
+            <div class="button operation">x</div>
+            <div class="button number">7</div>
+            <div class="button number">8</div>
+            <div class="button number">9</div>
+            <div class="button operation">-</div>
+            <div class="button number">4</div>
+            <div class="button number">5</div>
+            <div class="button number">6</div>
+            <div class="button operation">+</div>
+            <div class="button number">1</div>
+            <div class="button number">2</div>
+            <div class="button number">3</div>
+            <div class="button equals">=</div>
+            <div class="button number">0</div>
+            <div class="button number">.</div>
         </div>
     </div>
 </body>
 
 <script>
 
-const buttons = Array.from(document.querySelectorAll('.button'));
+const numbers = Array.from(document.querySelectorAll('.number'));
+const operators = Array.from(document.querySelectorAll('.operation'))
 const outputArea = document.querySelector('#outputArea h1');
+const recentArea = document.querySelector('#outputArea p');
 
-console.log(buttons);
-console.log(outputArea);
 
-buttons.map(button => {
+var currentNumber = [];
+var operations = "";
+var runningTotal = 0;
+// press all of the numbers. When operator is pressed, it gets the number that was typed. 
 
-    button.onclick = function() {
-        console.log(button.innerHTML + 1);
+numbers.map(number => {
+
+    number.onclick = function() {
+        //when a button is clicked, we want to check the class that the button had.
+        console.log('That was a number', number);
+        if (number.className.includes('number') && !currentNumber.includes('.')){
+            currentNumber.push(number.innerHTML);
+        }
+    };
+});
+
+operators.map(operator => {
+
+    operator.onclick = function() {
+
+        //convert the currentNumber into an integer and perform operation to get running total;
+        console.log('That was an operator', operator);
+
+        currentNumber = parseInt(currentNumber.join(''));
+        switch (operator.innerHTML) {
+            case '/':
+                runningTotal /=currentNumber;
+                break;
+
+            case '*':
+                runningTotal *= currentNumber;
+                break;
+
+            case '+':
+                runningTotal += currentNumber;
+                break;
+
+            case '-':
+                runningTotal -= currentNumber;
+                break;
+            default:
+                console.log('it went to default for some reason');
+        }
+        console.log('runningTotal is', runningTotal);
+        currentNumber = [];
+
+        // add the current number and operation to the recent string
+        // then wipe the current number clean to [].
+
+
+
+
+
     }
 
 });
-
 
 </script>
 
