@@ -40,7 +40,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title> Calculator </title>
+    <title> Javascript Calculator </title>
 </head>
 
 <body>
@@ -54,7 +54,7 @@
 
         <div id="outputArea">
             <h1>0</h1>
-            <p>0+0=0</p>
+            <p></p>
         </div>
 
         <div id="buttons">
@@ -83,26 +83,23 @@
 <script>
 
 const numbers = Array.from(document.querySelectorAll('.number'));
-const operators = Array.from(document.querySelectorAll('.operation'))
+const operators = Array.from(document.querySelectorAll('.operation'));
+const equals = Array.from(document.querySelector('.equals'));
 const outputArea = document.querySelector('#outputArea h1');
 const recentArea = document.querySelector('#outputArea p');
 
-
 var currentNumber = [];
-var history = []; //This is every number_op_number_op pressed in sequence. 
-var runningTotal = 0;
-// press all of the numbers. When operator is pressed, it gets the number that was typed. 
+var history = [];
+var total = 0;
 
 numbers.map(number => {
 
     number.onclick = function() {
-        //when a button is clicked, we want to check the class that the button had.
-        console.log('That was a number', number);
         if (number.className.includes('number') && !currentNumber.includes('.')){
+            console.log('number pressed was:', number.innerHTML);
             currentNumber.push(number.innerHTML);
-            history.push(number.innerHTML);
+            outputArea.innerHTML = currentNumber.join('');
         }
-        console.log('history:', history.join(''));
     };
 });
 
@@ -110,40 +107,33 @@ operators.map(operator => {
 
     operator.onclick = function() {
 
-        //convert the currentNumber into an integer and perform operation to get running total;
-        console.log('That was an operator', operator);
+        if (recentArea.innerHTML !== "") {
 
-        currentNumber = parseInt(currentNumber.join(''));
-        switch (operator.innerHTML) {
-            case '/':
-                runningTotal /=currentNumber;
-                break;
+            switch (operator.innerHTML) {
+                case '/':
+                    console.log('/ was pressed');
+                    break;
+                case '*':
+                    console.log('* was pressed');
+                    break;
+                case '+':
+                    console.log('+ was pressed');
+                    break;
+                case '-':
+                    console.log('- was pressed');
+                    break;
+                default:
+                    console.log('it went to default for some reason');
+            }
 
-            case '*':
-                runningTotal *= currentNumber;
-                break;
-
-            case '+':
-                runningTotal += currentNumber;
-                break;
-
-            case '-':
-                runningTotal -= currentNumber;
-                break;
-            default:
-                console.log('it went to default for some reason');
         }
-        console.log('history:', history.join(''));
-        console.log('runningTotal is', runningTotal);
-        history.push(operator.innerHTML);
 
+        console.log(operator.innerHTML, " was pressed");
+        
+        recentArea.innerHTML += currentNumber.join('') + operator.innerHTML;
         currentNumber = [];
-
-        // add the current number and operation to the recent string
-        // then wipe the current number clean to [].
-
+        outputArea.innerHTML = operator.innerHTML;
     }
-
 });
 
 </script>
