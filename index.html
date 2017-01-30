@@ -7,34 +7,60 @@
         text-align: center;
     }
     #buttons {
-        /* Flex Container */
-        display: flex;
-        flex-flow: row wrap;
-        align-content: flex-start;
-        justify-content: center;
-
-
-        border: 2px solid red;
-        height: 500px;
-        width: 30%;
-        margin: 0 auto;
+        display: inline-block;
+        width: 280px;
+        height: 350px;
+        padding: 10px;
     }
-    .button {
+    button {
         /* Flex Item */
+        width: 50px;
+        height: 50px;
+        float: left;
         margin: 10px;
-        padding: 5%;
 
-        /* Center the Text by making the button a flex of it's own */
+        /* Center the Text in the button by making the button a flexbox*/
         display: flex;
         align-items: center;
         justify-content: center;
 
         /* Styling the Box */
-        border-radius: 10%;
+        border-radius: 10px;
         color: white;
-        background: black;
+        background: rgb(58,58,58);
         font-size: 20px;
     }
+    .acButton .ceButton {
+        background: red !important;
+    }
+    #equalsButton {
+        height: 120px;
+    }
+    #zeroButton {
+        width: 120px;
+        transform: translateY(-70px);
+    }
+    #periodButton {
+        transform: translateY(-70px);
+    }
+    #outputArea {
+        background-color: rgb(195, 193, 172);
+        border: 2px solid rgb(180, 178, 158);
+        width: 240px;
+        margin: 0 auto;
+        padding-left: 10px;
+        padding-right: 10px;
+        text-align: right;
+    }
+    #container {
+        background-color: rgb(222, 216, 208);
+        border-radius: 30px;
+        width: 300px;
+        margin: 0 auto;
+        margin-top: 6%;
+        padding: 10px;
+    }
+
 </style>
 
 
@@ -49,35 +75,38 @@
 
 
 
-        <h1 id="calculatorHeading">FreeCodeCamp</h1>
-        <p> Electronic Calculator </p>
+        <h1 id="calculatorHeading">Javascript Calculator</h1>
 
         <div id="outputArea">
             <h1>0</h1>
-            <p></p>
+            <p>0</p>
         </div>
 
         <div id="buttons">
-            <div class="button">AC</div>
-            <div class="button">CE</div>
-            <div class="button operation">/</div>
-            <div class="button operation">x</div>
-            <div class="button number">7</div>
-            <div class="button number">8</div>
-            <div class="button number">9</div>
-            <div class="button operation">-</div>
-            <div class="button number">4</div>
-            <div class="button number">5</div>
-            <div class="button number">6</div>
-            <div class="button operation">+</div>
-            <div class="button number">1</div>
-            <div class="button number">2</div>
-            <div class="button number">3</div>
-            <div class="button equals">=</div>
-            <div class="button number">0</div>
-            <div class="button number">.</div>
+            <button id="acButton" class="button">AC</button>
+            <button id="ceButton" class="button">CE</button>
+            <button class="button operation">/</button>
+            <button class="button operation">x</button>
+            <button class="button number">7</button>
+            <button class="button number">8</button>
+            <button class="button number">9</button>
+            <button class="button operation">-</button>
+            <button class="button number">4</button>
+            <button class="button number">5</button>
+            <button class="button number">6</button>
+            <button class="button operation">+</button>
+            <button class="button number">1</button>
+            <button class="button number">2</button>
+            <button class="button number">3</button>
+            <button id="equalsButton" class="button equals">=</button>
+            <button id="zeroButton" class="button number">0</button>
+            <button id="periodButton" class="button number">.</button>
         </div>
+
     </div>
+
+    <p>By Jack Glendenning</p>
+
 </body>
 
 <script>
