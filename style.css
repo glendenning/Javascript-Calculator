@@ -1,0 +1,56 @@
+html, body {
+    font-size: 10px;
+    font-family: 'Verdana';
+    text-align: center;
+    background-color: rgb(129, 129, 129);
+}
+#buttons {
+    display: inline-block;
+    width: 280px;
+    height: 350px;
+    padding: 10px;
+}
+button {
+    /* Flex Item */
+    width: 50px;
+    height: 50px;
+    float: left;
+    margin: 10px;
+
+    /* Styling the Box */
+    border-radius: 10px;
+    color: white;
+    background: rgb(58,58,58);
+    font-size: 20px;
+}
+#acButton, #ceButton {
+    background-color: rgb(153, 61, 75);
+}
+#equalsButton {
+    height: 120px;
+}
+#zeroButton {
+    width: 120px;
+    transform: translateY(-70px);
+}
+#periodButton {
+    transform: translateY(-70px);
+}
+#outputArea {
+    background-color: rgb(195, 193, 172);
+    border: 2px solid rgb(180, 178, 158);
+    border-radius: 10px;
+    width: 240px;
+    margin: 0 auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: right;
+}
+#container {
+    background-color: rgb(222, 216, 208);
+    border-radius: 30px;
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 6%;
+    padding: 10px;
+}
