@@ -61,3 +61,6 @@ button:active {
     margin-top: 6%;
     padding: 10px;
 }
+#author {
+    font-size: 15px;
+}
