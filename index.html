@@ -97,7 +97,7 @@ numbers.map(number => {
             AC();
         }
         if (currentNumber.includes('.') && number.innerHTML === '.') {
-            //don't do anything
+            //so if they press '.' but there is already a '.', do nothing
         } else {
             currentNumber.push(number.innerHTML);
             outputArea.innerHTML = currentNumber.join('');
@@ -108,7 +108,7 @@ numbers.map(number => {
 operators.map(operator => {
     operator.onclick = function() {
 
-        // make the output area display the operator
+        // make the output area display the operator pressed
         outputArea.innerHTML = operator.innerHTML;
 
         // if an operator is pressed after = is used, continue
@@ -124,7 +124,12 @@ operators.map(operator => {
         if (recentArea.innerHTML == "0") {
             recentArea.innerHTML = currentNumber.join('') + operator.innerHTML;
             total = parseFloat(currentNumber.join(''));
-        // otherwise...
+
+        // otherwise if the last character in the recent Area was an operator
+        } else if (recentArea.innerHTML.slice(-1) === "+" || "-" || "x" || "/") {
+            // replace the operator with the operator pressed
+            recentArea.innerHTML = recentArea.innerHTML.substring(0, recentArea.innerHTML.length-1) + operator.innerHTML;
+        
         } else {
             // update the toal
             lastOperator = recentArea.innerHTML.slice(-1);
