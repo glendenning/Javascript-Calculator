@@ -11,8 +11,6 @@
 
     <div id="container">
 
-
-
         <h1 id="calculatorHeading">Javascript Calculator</h1>
 
         <div id="outputArea">
@@ -52,18 +50,44 @@
 const numbers = Array.from(document.querySelectorAll('.number'));
 const operators = Array.from(document.querySelectorAll('.operation'));
 const equals = document.querySelector('.equals');
+const acButton = document.getElementById('acButton');
+const ceButton = document.getElementById('ceButton');
 const outputArea = document.querySelector('#outputArea h1');
 const recentArea = document.querySelector('#outputArea p');
 
 var currentNumber = [];
-var calculatorHistory = [];
 var total = 0;
 
-numbers.map(number => {
+function updateTotal (lastOperator, lastNumber) {
+    switch (lastOperator) {
+        case '/':
+            total /= lastNumber;
+            break;
+        case 'x':
+            total *= lastNumber;
+            break;
+        case '+':
+            total += lastNumber;
+            break;
+        case '-':
+            total -= lastNumber;
+            break;
+    }
+}
 
+function AC () {
+    recentArea.innerHTML = 0;
+    outputArea.innerHTML = 0;
+    currentNumber = [];
+    total = 0;
+}
+
+numbers.map(number => {
     number.onclick = function() {
-        if (number.className.includes('number') && !currentNumber.includes('.')){
-            // add this number to currentNumber and display the current number
+        if (recentArea.innerHTML.includes("=")) {
+            AC();
+        }
+        if (!currentNumber.includes('.')){
             currentNumber.push(number.innerHTML);
             outputArea.innerHTML = currentNumber.join('');
         }
@@ -71,7 +95,6 @@ numbers.map(number => {
 });
 
 operators.map(operator => {
-
     operator.onclick = function() {
 
         //make the output area display the operator
@@ -85,21 +108,7 @@ operators.map(operator => {
         } else {
 
             var lastOperator = recentArea.innerHTML.slice(-1);
-
-            switch (lastOperator) {
-                case '/':
-                    total /= parseInt(currentNumber.join(''));
-                    break;
-                case '*':
-                    total *= parseInt(currentNumber.join(''));
-                    break;
-                case '+':
-                    total += parseInt(currentNumber.join(''));
-                    break;
-                case '-':
-                    total -= parseInt(currentNumber.join(''));
-                    break;
-            }
+            updateTotal(lastOperator);
 
             recentArea.innerHTML += currentNumber.join('') + operator.innerHTML;
         }
@@ -113,8 +122,28 @@ operators.map(operator => {
 });
 
 equals.onclick = function () {
-    console.log('you pressed equals');
+    // calculate the newest number and display the total
+    // only do the following if an operator was not the last thing pressed
+    lastOperator = recentArea.innerHTML.slice(-1);
+    lastNumber = parseInt(currentNumber.join('')); 
+    updateTotal(lastOperator, lastNumber); 
+
+    recentArea.innerHTML += lastNumber + "=" + total;
+    
+    console.log('total is now ' + total);
 }
+
+acButton.onclick = function () {
+    recentArea.innerHTML = 0;
+    outputArea.innerHTML = 0;
+    currentNumber = [];
+    total = 0;
+}
+ceButton.onclick = function () {
+    currentNumber = [];
+    outputArea.innerHTML = 0;
+}
+// mission is to get equals to display. 1+1=2
 
 </script>
 
