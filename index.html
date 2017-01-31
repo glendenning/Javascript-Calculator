@@ -111,23 +111,29 @@ operators.map(operator => {
         // make the output area display the operator
         outputArea.innerHTML = operator.innerHTML;
 
+        // if an operator is pressed after = is used, continue
+        // calculating with the ouptut as the starting total
         if (recentArea.innerHTML.includes("=")) {
-            AC(); // clear everything but leave the total as the first number
+            whatTheTotalWas = total;
+            AC();
+            total = whatTheTotalWas;
+            recentArea.innerHTML = total;
         }
 
         // for the first time, the total becomes the number that was typed
         if (recentArea.innerHTML == "0") {
             recentArea.innerHTML = currentNumber.join('') + operator.innerHTML;
             total = parseFloat(currentNumber.join(''));
-
+        // otherwise...
         } else {
-
+            // update the toal
             lastOperator = recentArea.innerHTML.slice(-1);
             lastNumber = parseFloat(currentNumber.join(''));
             updateTotal(lastOperator, lastNumber);
+
+            // display the recent numbers and operations in the recent area
             recentArea.innerHTML += currentNumber.join('') + operator.innerHTML;
         }
-        console.log('total is: ', total);
 
         // reset the current number
         currentNumber = [];
@@ -137,12 +143,21 @@ operators.map(operator => {
 });
 
 equals.onclick = function () {
-    // calculate the newest number and display the total
-    // only do the following if an operator was not the last thing pressed
+
+    // don't do anything if there wasn't a current number
+    console.log(currentNumber);
+    if (currentNumber[0] === undefined) {
+        return;
+    }
+    // if a number was typed and nothing else, the total is just the number typed
+
+
+    //Update the total for the last number pressed
     lastOperator = recentArea.innerHTML.slice(-1);
     lastNumber = parseFloat(currentNumber.join('')); 
     updateTotal(lastOperator, lastNumber); 
 
+    // Display the total
     recentArea.innerHTML += lastNumber + "=" + total;
     outputArea.innerHTML = total;
 
