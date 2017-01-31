@@ -126,9 +126,9 @@ operators.map(operator => {
             total = parseFloat(currentNumber.join(''));
 
         // otherwise if the last character in the recent Area was an operator
-        } else if (recentArea.innerHTML.slice(-1) === "+" || "-" || "x" || "/") {
-            // replace the operator with the operator pressed
-            recentArea.innerHTML = recentArea.innerHTML.substring(0, recentArea.innerHTML.length-1) + operator.innerHTML;
+        // } else if (recentArea.innerHTML.slice(-1) === "+" || "-" || "x" || "/") {
+        //     // replace the operator with the operator pressed
+        //     recentArea.innerHTML = recentArea.innerHTML.substring(0, recentArea.innerHTML.length-1) + operator.innerHTML;
         
         } else {
             // update the toal
