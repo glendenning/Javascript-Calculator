@@ -36,7 +36,7 @@
             <button class="button number">1</button>
             <button class="button number">2</button>
             <button class="button number">3</button>
-            <button id="equalsButton" class="button equals">=</button>
+            <button id="equalsButton" class="button operation equals">=</button>
             <button id="zeroButton" class="button number">0</button>
             <button id="periodButton" class="button number">.</button>
         </div>
@@ -51,7 +51,7 @@
 
 const numbers = Array.from(document.querySelectorAll('.number'));
 const operators = Array.from(document.querySelectorAll('.operation'));
-const equals = Array.from(document.querySelector('.equals'));
+const equals = document.querySelector('.equals');
 const outputArea = document.querySelector('#outputArea h1');
 const recentArea = document.querySelector('#outputArea p');
 
@@ -63,11 +63,8 @@ numbers.map(number => {
 
     number.onclick = function() {
         if (number.className.includes('number') && !currentNumber.includes('.')){
-
-            console.log('the number pressed was:', number.innerHTML);
             // add this number to currentNumber and display the current number
             currentNumber.push(number.innerHTML);
-            console.log("The current number is " + currentNumber.join(''));
             outputArea.innerHTML = currentNumber.join('');
         }
     };
@@ -77,35 +74,47 @@ operators.map(operator => {
 
     operator.onclick = function() {
 
+        //make the output area display the operator
         outputArea.innerHTML = operator.innerHTML;
 
-        calculatorHistory.push( parseInt(currentNumber.join('')) );
-        currentNumber = [];
+        if (recentArea.innerHTML == "0") {
+            //for the first time, the total becomes the number that was typed
+            recentArea.innerHTML = currentNumber.join('') + operator.innerHTML;
+            total = parseInt(currentNumber.join(''));
 
-        if (recentArea.innerHTML !== "") {
+        } else {
 
-            switch (operator.innerHTML) {
+            var lastOperator = recentArea.innerHTML.slice(-1);
+
+            switch (lastOperator) {
                 case '/':
-                    console.log('/ was pressed');
+                    total /= parseInt(currentNumber.join(''));
                     break;
                 case '*':
-                    console.log('* was pressed');
+                    total *= parseInt(currentNumber.join(''));
                     break;
                 case '+':
-                    console.log('+ was pressed');
+                    total += parseInt(currentNumber.join(''));
                     break;
                 case '-':
-                    console.log('- was pressed');
+                    total -= parseInt(currentNumber.join(''));
                     break;
-                default:
-                    console.log('it went to default for some reason');
             }
 
+            recentArea.innerHTML += currentNumber.join('') + operator.innerHTML;
         }
+        console.log('total is: ', total);
+
+        // reset the current number
+        currentNumber = [];
 
     }
 
 });
+
+equals.onclick = function () {
+    console.log('you pressed equals');
+}
 
 </script>
 
