@@ -57,6 +57,8 @@ const recentArea = document.querySelector('#outputArea p');
 
 var currentNumber = [];
 var total = 0;
+var lastOperator;
+var lastNumber;
 
 function updateTotal (lastOperator, lastNumber) {
     switch (lastOperator) {
@@ -73,21 +75,30 @@ function updateTotal (lastOperator, lastNumber) {
             total -= lastNumber;
             break;
     }
+    console.log('total is now: ' + total);
 }
 
-function AC () {
+function AC() {
     recentArea.innerHTML = 0;
     outputArea.innerHTML = 0;
     currentNumber = [];
     total = 0;
 }
 
+function CE() {
+    currentNumber = [];
+    outputArea.innerHTML = 0;
+}
+
+
 numbers.map(number => {
     number.onclick = function() {
         if (recentArea.innerHTML.includes("=")) {
             AC();
         }
-        if (!currentNumber.includes('.')){
+        if (currentNumber.includes('.') && number.innerHTML === '.') {
+            //don't do anything
+        } else {
             currentNumber.push(number.innerHTML);
             outputArea.innerHTML = currentNumber.join('');
         }
@@ -97,19 +108,23 @@ numbers.map(number => {
 operators.map(operator => {
     operator.onclick = function() {
 
-        //make the output area display the operator
+        // make the output area display the operator
         outputArea.innerHTML = operator.innerHTML;
 
+        if (recentArea.innerHTML.includes("=")) {
+            AC(); // clear everything but leave the total as the first number
+        }
+
+        // for the first time, the total becomes the number that was typed
         if (recentArea.innerHTML == "0") {
-            //for the first time, the total becomes the number that was typed
             recentArea.innerHTML = currentNumber.join('') + operator.innerHTML;
-            total = parseInt(currentNumber.join(''));
+            total = parseFloat(currentNumber.join(''));
 
         } else {
 
-            var lastOperator = recentArea.innerHTML.slice(-1);
-            updateTotal(lastOperator);
-
+            lastOperator = recentArea.innerHTML.slice(-1);
+            lastNumber = parseFloat(currentNumber.join(''));
+            updateTotal(lastOperator, lastNumber);
             recentArea.innerHTML += currentNumber.join('') + operator.innerHTML;
         }
         console.log('total is: ', total);
@@ -125,25 +140,19 @@ equals.onclick = function () {
     // calculate the newest number and display the total
     // only do the following if an operator was not the last thing pressed
     lastOperator = recentArea.innerHTML.slice(-1);
-    lastNumber = parseInt(currentNumber.join('')); 
+    lastNumber = parseFloat(currentNumber.join('')); 
     updateTotal(lastOperator, lastNumber); 
 
     recentArea.innerHTML += lastNumber + "=" + total;
-    
-    console.log('total is now ' + total);
-}
+    outputArea.innerHTML = total;
 
+}
 acButton.onclick = function () {
-    recentArea.innerHTML = 0;
-    outputArea.innerHTML = 0;
-    currentNumber = [];
-    total = 0;
+    AC();
 }
 ceButton.onclick = function () {
-    currentNumber = [];
-    outputArea.innerHTML = 0;
+    CE();
 }
-// mission is to get equals to display. 1+1=2
 
 </script>
 
